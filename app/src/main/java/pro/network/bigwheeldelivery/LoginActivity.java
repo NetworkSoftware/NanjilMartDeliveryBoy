@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.LOGIN_USER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response);
+                Log.d("Register Response: ", response.toString());
                 try {
                     JSONObject jObj = new JSONObject(response);
                     int success = jObj.getInt("success");
@@ -132,11 +132,13 @@ public class LoginActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putBoolean(AppConfig.isLogin, true);
-                        editor.putString(AppConfig.configKey, name);
+                        editor.putString(AppConfig.configKey, username.getText().toString());
                         editor.putString(AppConfig.usernameKey, name);
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
 
                     }
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
@@ -148,8 +150,10 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Toast.makeText(getApplicationContext(),
                         "Slow network found.Try again later", Toast.LENGTH_LONG).show();
                 hideDialog();
@@ -157,8 +161,8 @@ public class LoginActivity extends AppCompatActivity {
         }) {
             protected Map<String, String> getParams() {
                 HashMap localHashMap = new HashMap();
-                localHashMap.put("phone", username);
-                localHashMap.put("password", password);
+                localHashMap.put("phone", username.getText().toString());
+                localHashMap.put("password", password.getText().toString());
                 return localHashMap;
             }
         };
