@@ -1,4 +1,4 @@
-package pro.network.bigwheeldelivery;
+package pro.network.bigwheeldelivery.order;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
+import pro.network.bigwheeldelivery.R;
+import pro.network.bigwheeldelivery.StockList;
 import pro.network.bigwheeldelivery.app.AppConfig;
 import pro.network.bigwheeldelivery.app.GlideApp;
 
@@ -53,22 +56,25 @@ public class OrderListSubAdapter extends RecyclerView.Adapter<OrderListSubAdapte
         notifyDataSetChanged();
     }
 
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OrderListSubAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.orders_list_sub, parent, false);
+                .inflate(R.layout.myorders_list_sub, parent, false);
 
-        return new MyViewHolder(itemView);
+        return new OrderListSubAdapter.MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final StockList myorderBean = myorderBeans.get(position);
+        holder.qty.setText(myorderBean.getQty() +" "+ myorderBean.getProductName());
+//        ArrayList<String> images = new Gson().fromJson(myorderBean.getImage(), (Type) List.class);
+     //   holder.qty.setText("orders "+ myorderBean.getModel());
 
-        holder.qty.setText(myorderBean.getQty() + " "+myorderBean.getProductName());
         GlideApp.with(mainActivityUser)
                 .load(AppConfig.getResizedImage(myorderBean.getImage(), true))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(false)
                 .placeholder(R.drawable.bigwheel)
-                .error(R.drawable.bigwheel)
                 .into(holder.product_image);
 
     }

@@ -1,7 +1,9 @@
-package pro.network.bigwheeldelivery;
+package pro.network.bigwheeldelivery.order;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import pro.network.bigwheeldelivery.StockList;
 
 
 /**
@@ -10,18 +12,49 @@ import java.util.ArrayList;
 
 public class Order implements Serializable {
 
+    String name;
+    String phone;
     String quantity, id, amount, status, items, createdon, reson;
     String toPincode, coupon, couponCost, delivery, payment, grandCost, shipCost, address;
     ArrayList<StockList> productBeans;
     String paymentId;
     String comments, deliveryTime;
     String createdOn;
-
-    String name;
-    String phone;
     String addressOrg;
-
+    String dboy;
     public Order() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
     public String getId() {
@@ -62,6 +95,14 @@ public class Order implements Serializable {
 
     public void setCreatedon(String createdon) {
         this.createdon = createdon;
+    }
+
+    public String getAddressOrg() {
+        return addressOrg;
+    }
+
+    public void setAddressOrg(String addressOrg) {
+        this.addressOrg = addressOrg;
     }
 
     public String getReson() {
@@ -168,43 +209,11 @@ public class Order implements Serializable {
         this.deliveryTime = deliveryTime;
     }
 
-    public String getCreatedOn() {
-        return createdOn;
+    public String getDboy() {
+        return dboy;
     }
 
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddressOrg() {
-        return addressOrg;
-    }
-
-    public void setAddressOrg(String addressOrg) {
-        this.addressOrg = addressOrg;
+    public void setDboy(String dboy) {
+        this.dboy = dboy;
     }
 }

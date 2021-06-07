@@ -2,17 +2,13 @@ package pro.network.bigwheeldelivery;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -52,18 +48,17 @@ import pro.network.bigwheeldelivery.app.AppController;
 import pro.network.bigwheeldelivery.app.BaseActivity;
 import pro.network.bigwheeldelivery.app.GlideApp;
 import pro.network.bigwheeldelivery.app.Imageutils;
-import pro.network.bigwheeldelivery.app.LocationTrack;
 
 import static pro.network.bigwheeldelivery.app.AppConfig.CREATE_DATA;
 
 
 public class RegisterPage extends BaseActivity implements Imageutils.ImageAttachmentListener {
     private static final int FINE_LOCATION_CODE = 199;
-
+    private final String TAG = getClass().getSimpleName();
     Imageutils imageutils;
-    ImageView image_adharcard,image_placeholder_adharcard;
-    ImageView image_license,  image_placeholder_license;
-    ImageView image_profile,  image_placeholder_profile;
+    ImageView image_adharcard, image_placeholder_adharcard;
+    ImageView image_license, image_placeholder_license;
+    ImageView image_profile, image_placeholder_profile;
     TextInputEditText name;
     TextInputEditText phone;
     TextInputEditText password;
@@ -77,11 +72,11 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
     private String imageUrlProfile = "";
     private String imageUrllicense = "";
     private String imageUrladharcard = "";
-    private String TAG = getClass().getSimpleName();
 
     @Override
     protected void startDemo() {
         setContentView(R.layout.activity_register);
+
         if (ContextCompat.checkSelfPermission(RegisterPage.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -97,19 +92,19 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
             }
         });
 
-        image_adharcard =findViewById(R.id.image_adharcard);
-        image_license  =findViewById(R.id.image_license);
-        image_profile  =findViewById(R.id.image_profile);
-        image_placeholder_adharcard =findViewById(R.id.image_placeholder_adharcard);
-        image_placeholder_license =findViewById(R.id.image_placeholder_license);
-        image_placeholder_profile =findViewById(R.id.image_placeholder_profile);
-        name =findViewById(R.id.name);
-        phone =findViewById(R.id.phone);
-        password =findViewById(R.id.password);
+        image_adharcard = findViewById(R.id.image_adharcard);
+        image_license = findViewById(R.id.image_license);
+        image_profile = findViewById(R.id.image_profile);
+        image_placeholder_adharcard = findViewById(R.id.image_placeholder_adharcard);
+        image_placeholder_license = findViewById(R.id.image_placeholder_license);
+        image_placeholder_profile = findViewById(R.id.image_placeholder_profile);
+        name = findViewById(R.id.name);
+        phone = findViewById(R.id.phone);
+        password = findViewById(R.id.password);
 
-        itemsAddprofile =findViewById(R.id.itemsAddprofile);
-        itemsAddlicense =findViewById(R.id.itemsAddlicense);
-        itemsAddadharcard =findViewById(R.id.itemsAddadharcard);
+        itemsAddprofile = findViewById(R.id.itemsAddprofile);
+        itemsAddlicense = findViewById(R.id.itemsAddlicense);
+        itemsAddadharcard = findViewById(R.id.itemsAddadharcard);
 
 
         image_profile.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +114,19 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
             }
         });
 
+        image_license.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageutils.imagepicker(2);
+            }
+        });
 
+        image_adharcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageutils.imagepicker(3);
+            }
+        });
 
 
         ExtendedFloatingActionButton submit = findViewById(R.id.submit);
@@ -163,8 +170,15 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                registerUser();
+                if (name.getText().toString().length() > 0 &&
+                        phone.getText().toString().length() > 0 &&
+                        password.getText().toString().length() > 0
+                        && imageUrladharcard != null
+                        && imageUrllicense != null
+                        && imageUrlProfile != null
+                ) {
+                    registerUser();
+                }
             }
 
         });
@@ -182,7 +196,7 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
                 CREATE_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("Register Response: ", response.toString());
+                Log.d("Register Response: ", response);
                 hideDialog();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -240,7 +254,7 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
         imageutils.createImage(file, filename, path, false);
         pDialog.setMessage("Uploading...");
         showDialog();
-        new UploadFileToServer().execute(imageutils.getPath(uri));
+        new UploadFileToServer().execute(imageutils.getPath(uri) + "@" + from);
     }
 
     @Override
@@ -253,6 +267,7 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
     private class UploadFileToServer extends AsyncTask<String, Integer, String> {
         public long totalSize = 0;
         String filepath;
+        String type;
 
         @Override
         protected void onPreExecute() {
@@ -264,12 +279,13 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-            pDialog.setMessage("Uploading..." + (String.valueOf(progress[0])));
+            pDialog.setMessage("Uploading..." + (progress[0]));
         }
 
         @Override
         protected String doInBackground(String... params) {
-            filepath = params[0];
+            filepath = params[0].split("@")[0];
+            type = params[0].split("@")[1];
             return uploadFile();
         }
 
@@ -324,19 +340,43 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
         protected void onPostExecute(String result) {
             Log.e("Response from server: ", result);
             try {
-                JSONObject jsonObject = new JSONObject(result.toString());
-                if (!jsonObject.getBoolean("error")) {
-
-                    GlideApp.with(getApplicationContext())
-                            .load(filepath)
-                            .dontAnimate()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .skipMemoryCache(false)
-                            .into(image_license);
-                    imageUrllicense = AppConfig.IMAGE_URL + imageutils.getfilename_from_path(filepath);
-
-                } else {
-                    imageUrllicense = null;
+                JSONObject jsonObject = new JSONObject(result);
+                if (type.equalsIgnoreCase("1")) {
+                    if (!jsonObject.getBoolean("error")) {
+                        GlideApp.with(getApplicationContext())
+                                .load(filepath)
+                                .dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .skipMemoryCache(false)
+                                .into(image_profile);
+                        imageUrlProfile = AppConfig.IMAGE_URL + imageutils.getfilename_from_path(filepath);
+                    } else {
+                        imageUrlProfile = null;
+                    }
+                } else if (type.equalsIgnoreCase("2")) {
+                    if (!jsonObject.getBoolean("error")) {
+                        GlideApp.with(getApplicationContext())
+                                .load(filepath)
+                                .dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .skipMemoryCache(false)
+                                .into(image_license);
+                        imageUrllicense = AppConfig.IMAGE_URL + imageutils.getfilename_from_path(filepath);
+                    } else {
+                        imageUrllicense = null;
+                    }
+                } else if (type.equalsIgnoreCase("3")) {
+                    if (!jsonObject.getBoolean("error")) {
+                        GlideApp.with(getApplicationContext())
+                                .load(filepath)
+                                .dontAnimate()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .skipMemoryCache(false)
+                                .into(image_adharcard);
+                        imageUrladharcard = AppConfig.IMAGE_URL + imageutils.getfilename_from_path(filepath);
+                    } else {
+                        imageUrladharcard = null;
+                    }
                 }
                 Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 

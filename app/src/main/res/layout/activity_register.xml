@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -60,11 +59,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile Photo"
                 android:layout_margin="10dp"
-                android:textSize="15dp"
+                android:fontFamily="@font/sans_bold"
+                android:text="Profile Photo"
                 android:textColor="@color/black"
-                android:fontFamily="@font/sans_bold"/>
+                android:textSize="15dp" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/itemsAddprofile"
                 android:layout_width="130dp"
@@ -173,94 +173,120 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Attach License ID"
-                android:layout_margin="10dp"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/sans_bold"/>
+                android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/itemsAddlicense"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/dotted"
-                android:elevation="50dp"
-                app:cardCornerRadius="5dp">
-
-                <ImageView
-                    android:id="@+id/image_license"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@color/white" />
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image_placeholder_license"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_outline_add_circle_outline_24"
-                    app:tint="@color/gray" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/sans_bold"
+                        android:text="Attach License ID"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
 
-                <ProgressBar
-                    android:id="@+id/licenseimg"
-                    android:layout_width="70.0dip"
-                    android:layout_height="70.0dip"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10.0dip"
-                    android:visibility="gone" />
-            </androidx.cardview.widget.CardView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Attach Adhar Card"
-                android:layout_margin="10dp"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/sans_bold"/>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/itemsAddadharcard"
-                android:layout_width="130dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/dotted"
-                android:elevation="50dp"
-                app:cardCornerRadius="5dp">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/itemsAddlicense"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="5dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/dotted"
+                        android:elevation="50dp"
+                        app:cardCornerRadius="5dp">
 
-                <ImageView
-                    android:id="@+id/image_adharcard"
+                        <ImageView
+                            android:id="@+id/image_license"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:src="@color/white" />
+
+                        <ImageView
+                            android:id="@+id/image_placeholder_license"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_outline_add_circle_outline_24"
+                            app:tint="@color/gray" />
+
+                        <ProgressBar
+                            android:id="@+id/licenseimg"
+                            android:layout_width="70.0dip"
+                            android:layout_height="70.0dip"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10.0dip"
+                            android:visibility="gone" />
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@color/white" />
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image_placeholder_adharcard"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_outline_add_circle_outline_24"
-                    app:tint="@color/gray" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fontFamily="@font/sans_bold"
+                        android:text="Attach Adhar Card"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
 
-                <ProgressBar
-                    android:id="@+id/adharcardimg"
-                    android:layout_width="70.0dip"
-                    android:layout_height="70.0dip"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10.0dip"
-                    android:visibility="gone" />
-            </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/itemsAddadharcard"
+                        android:layout_width="130dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="5dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/dotted"
+                        android:elevation="50dp"
+                        app:cardCornerRadius="5dp">
 
+                        <ImageView
+                            android:id="@+id/image_adharcard"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:src="@color/white" />
+
+                        <ImageView
+                            android:id="@+id/image_placeholder_adharcard"
+                            android:layout_width="40dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_outline_add_circle_outline_24"
+                            app:tint="@color/gray" />
+
+                        <ProgressBar
+                            android:id="@+id/adharcardimg"
+                            android:layout_width="70.0dip"
+                            android:layout_height="70.0dip"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10.0dip"
+                            android:visibility="gone" />
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

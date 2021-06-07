@@ -1,2 +1,2 @@
-include ':app',':photoview'
+include ':app'
 rootProject.name = "Bigwheel DeliveryBoy"

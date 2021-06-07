@@ -31,6 +31,7 @@ import java.util.Map;
 
 import pro.network.bigwheeldelivery.app.AppConfig;
 import pro.network.bigwheeldelivery.app.AppController;
+import pro.network.bigwheeldelivery.order.MainActivityOrder;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText username;
@@ -62,8 +63,8 @@ public class LoginActivity extends AppCompatActivity {
         passwordText = findViewById(R.id.passwordText);
 
         request=findViewById(R.id.request);
-        if (sharedpreferences.contains(AppConfig.configKey)) {
-            username.setText(sharedpreferences.getString(AppConfig.configKey, ""));
+        if (sharedpreferences.contains(AppConfig.phone)) {
+            username.setText(sharedpreferences.getString(AppConfig.phone, ""));
             password.requestFocus();
         }
 
@@ -129,15 +130,25 @@ public class LoginActivity extends AppCompatActivity {
                         String auth_key = jObj.getString("auth_key");
                         String user_id = jObj.getString("user_id");
                         String name = jObj.getString("name");
+                        String phone = jObj.getString("phone");
+                        String password = jObj.getString("password");
+                        String image = jObj.getString("image");
+                        String license = jObj.getString("license");
+                        String adharcard = jObj.getString("adharcard");
+
 
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putBoolean(AppConfig.isLogin, true);
-                        editor.putString(AppConfig.configKey, username.getText().toString());
-                        editor.putString(AppConfig.usernameKey, name);
+                        editor.putString(AppConfig.name, name);
+                        editor.putString(AppConfig.phone, phone);
+                        editor.putString(AppConfig.password, password);
+                        editor.putString(AppConfig.profile, image);
+                        editor.putString(AppConfig.license, license);
+                        editor.putString(AppConfig.aadhar, adharcard);
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivityOrder.class));
                         finish();
 
                     }

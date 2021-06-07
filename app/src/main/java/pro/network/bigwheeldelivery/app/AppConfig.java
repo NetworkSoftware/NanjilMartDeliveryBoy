@@ -33,9 +33,14 @@ public class AppConfig {
     public static final String mypreference = "mypref";
     public static final String shopIdKey = "shopIdKey";
 
-    public static final String configKey = "configKey";
-    public static final String usernameKey = "usernameKey";
+    public static final String name = "name";
     public static final String user_id = "user_id";
+    public static final String profile = "profile";
+    public static final String license = "license";
+    public static final String aadhar = "aadhar";
+    public static final String phone = "phone";
+    public static final String password = "password";
+
     //NetworkSoftware
     public static final String ip = "http://thestockbazaar.com/admin/e-commerce/bigwheel";
     public static final String delivery_id = "delivery_id";
@@ -191,5 +196,7 @@ public class AppConfig {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
 
+    public static final String ORDER_CHANGE_STATUS = ip + "/order_change_status.php";
+    public static final String FETCH_ADDRESS = ip + "/fetch_address.php";
 
 }
