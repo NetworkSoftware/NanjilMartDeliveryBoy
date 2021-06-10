@@ -18,10 +18,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -199,10 +201,14 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
                 Log.d("Register Response: ", response);
                 hideDialog();
                 try {
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response.split("0000")[1]);
                     int success = jsonObject.getInt("success");
                     String msg = jsonObject.getString("message");
-                    if (success == 1) {
+                    if (success==1) {
+                        final String delivername = name.getText().toString();
+                        sendNotification(phone.getText().toString()
+                                , delivername.length() > 30 ? delivername.substring(0, 29) + "..." :
+                                        delivername);
                         finish();
                     }
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
@@ -392,6 +398,54 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
         }
 
     }
+
+    private void sendNotification(String title, String description) {
+        String tag_string_req = "req_register";
+        showDialog();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("to", "/topics/allDevices");
+            jsonObject.put("priority", "high");
+            JSONObject dataObject = new JSONObject();
+            dataObject.put("title", title);
+            dataObject.put("message", description);
+            jsonObject.put("data", dataObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest strReq = new JsonObjectRequest(Request.Method.POST,
+                "https://fcm.googleapis.com/fcm/send", jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("Register Response: ", response.toString());
+                hideDialog();
+                finish();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                finish();
+                hideDialog();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                return localHashMap;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap hashMap = new HashMap();
+                hashMap.put("Content-Type", "application/json");
+                hashMap.put("Authorization", "key=AAAAISMaBQA:APA91bF9Nr5JAxbb22sTmGm1kC0TTSB347gd_6UZ6DQqeLz-7gYyD73zSVsPT4gS0AtRVEN5AttPFmRZDKjWrHgiC3rOiuwUrgk41GFeMjT0JENvZ6FOKGbjmD2DWm2xqr2zhjQ5dzBC");
+                return hashMap;
+            }
+        };
+        strReq.setRetryPolicy(AppConfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 
 }
 

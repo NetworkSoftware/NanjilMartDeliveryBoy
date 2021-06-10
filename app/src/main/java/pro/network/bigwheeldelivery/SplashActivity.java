@@ -8,6 +8,9 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import pro.network.bigwheeldelivery.app.AppConfig;
 import pro.network.bigwheeldelivery.order.MainActivityOrder;
 
@@ -20,6 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
         sharedpreferences = getSharedPreferences(AppConfig.mypreference,
                 Context.MODE_PRIVATE);
 
@@ -30,14 +34,12 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("Error", e.toString());
                 } finally {
-                    if (!(sharedpreferences.contains(AppConfig.isLogin)
-                            && sharedpreferences.getBoolean(AppConfig.isLogin, false))) {
-                        SplashActivity.this.startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                        finish();
-                    } else {
+                    if (sharedpreferences.contains(AppConfig.isLogin) && sharedpreferences.getBoolean(AppConfig.isLogin, false)) {
                         SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivityOrder.class));
-                        finish();
+                    } else {
+                        SplashActivity.this.startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
+                    finish();
                 }
             }
         };

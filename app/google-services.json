@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "144788714796",
+    "project_id": "bigwheeldeliveryboy",
+    "storage_bucket": "bigwheeldeliveryboy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144788714796:android:f3e0202d2ff04dac0b6889",
+        "android_client_info": {
+          "package_name": "pro.network.bigwheeldelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144788714796-ioasqifh53h674q51bq19kn4es1l3rg2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKeBRKQh1yqN9qvo-cINAWzqX8vdwRPv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144788714796-ioasqifh53h674q51bq19kn4es1l3rg2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
