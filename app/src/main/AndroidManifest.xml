@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pro.network.bigwheeldelivery">
+    package="pro.network.shopbazaardelivery">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,11 +10,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
-        android:name="pro.network.bigwheeldelivery.app.AppController"
+        android:name="pro.network.shopbazaardelivery.app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/bigwheel"
+        android:icon="@drawable/mobilecom"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/bigwheel"
+        android:roundIcon="@drawable/mobilecom"
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -25,7 +25,7 @@
             android:required="false" />
 
 
-        <activity android:name="pro.network.bigwheeldelivery.SplashActivity"
+        <activity android:name="pro.network.shopbazaardelivery.SplashActivity"
             android:theme="@style/AppThemeSplash"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
@@ -35,26 +35,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pro.network.bigwheeldelivery.LoginActivity"
+            android:name="pro.network.shopbazaardelivery.LoginActivity"
             android:label="Login"
             android:theme="@style/AppThemeSplash" />
         <activity
-            android:name=".order.MyOrderPage"
+            android:name="pro.network.shopbazaardelivery.service.MainActivityService"
             android:theme="@style/AppThemeMat" />
         <activity
-            android:name=".order.MainActivityOrder"
+            android:name="pro.network.shopbazaardelivery.service.TimelineActivity"
+            android:theme="@style/AppThemeMat" />
+
+        <activity
+            android:name="pro.network.shopbazaardelivery.SettingsActivity"
             android:theme="@style/AppThemeMat" />
         <activity
-            android:name=".SettingsActivity"
-            android:theme="@style/AppThemeMat" />
-        <activity
-            android:name="pro.network.bigwheeldelivery.RegisterPage"
+            android:name="pro.network.shopbazaardelivery.RegisterPage"
             android:label="Register"
             android:theme="@style/AppThemeNowhite" />
 
         <provider
-            android:name="pro.network.bigwheeldelivery.app.GenericFileProvider"
-            android:authorities="pro.network.bigwheeldelivery.provider"
+            android:name="pro.network.shopbazaardelivery.app.GenericFileProvider"
+            android:authorities="pro.network.shopbazaardelivery.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -62,7 +63,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <service
-            android:name="pro.network.bigwheeldelivery.app.FirebaseMessageReceiver"
+            android:name="pro.network.shopbazaardelivery.app.FirebaseMessageReceiver"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>
