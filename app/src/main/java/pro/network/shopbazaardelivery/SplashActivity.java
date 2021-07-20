@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
                     Log.e("Error", e.toString());
                 } finally {
                     if (sharedpreferences.contains(AppConfig.isLogin) && sharedpreferences.getBoolean(AppConfig.isLogin, false)) {
-                        SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivityService.class));
+                        SplashActivity.this.startActivity(new Intent(SplashActivity.this, NaviActivity.class));
                     } else {
                         SplashActivity.this.startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }

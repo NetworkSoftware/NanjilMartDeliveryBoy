@@ -63,6 +63,9 @@ public class AppConfig {
     public static final String GET_ALL_DATA = ip + "/get_all_delivery.php";
 
     public static final String ORDER_GET_ALL = ip + "/dataFetchAll_order.php";
+    public static final String TRACK_PRODUCT_ORDER_ID = ip + "/com_track_order_id.php";
+
+
 
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);
@@ -142,6 +145,7 @@ public class AppConfig {
             return time;
         }
     }
+
     private static void copyFileNew(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int read;

@@ -42,11 +42,20 @@
             android:name="pro.network.shopbazaardelivery.service.MainActivityService"
             android:theme="@style/AppThemeMat" />
         <activity
+            android:name="pro.network.shopbazaardelivery.product.MainActivityOrder"
+            android:theme="@style/AppThemeNo" />
+        <activity
+            android:name="pro.network.shopbazaardelivery.NaviActivity"
+            android:theme="@style/AppThemeMat" />
+        <activity
             android:name="pro.network.shopbazaardelivery.service.TimelineActivity"
             android:theme="@style/AppThemeMat" />
 
         <activity
             android:name="pro.network.shopbazaardelivery.SettingsActivity"
+            android:theme="@style/AppThemeMat" />
+        <activity
+            android:name="pro.network.shopbazaardelivery.product.Order_TimelineActivity"
             android:theme="@style/AppThemeMat" />
         <activity
             android:name="pro.network.shopbazaardelivery.RegisterPage"
