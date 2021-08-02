@@ -7,8 +7,8 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "pro.network.shopbazaardelivery"
-        minSdkVersion 16
+        applicationId "pro.network.nanjilmartdelivery"
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
