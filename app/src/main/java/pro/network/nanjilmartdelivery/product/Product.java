@@ -11,8 +11,6 @@ public class Product implements Serializable {
     String brand;
     String model;
     String price;
-    String ram;
-    String rom;
     String name;
     String image;
     String description;
@@ -20,7 +18,8 @@ public class Product implements Serializable {
     String qty;
     String stock_update;
     String userId;
-
+    String sub_category;
+    String shopname;
 
 
     public Product() {
@@ -34,17 +33,16 @@ public class Product implements Serializable {
         this.userId = userId;
     }
 
-    public Product(String brand, String model, String price, String ram, String rom, String name, String image, String description, String category) {
+    public Product(String brand, String model, String price, String name, String image, String description, String category, String sub_category, String shopname) {
         this.brand = brand;
         this.model = model;
         this.price = price;
-        this.ram = ram;
-        this.rom = rom;
         this.name = name;
         this.image = image;
         this.description = description;
         this.category = category;
-
+        this.sub_category = sub_category;
+        this.shopname = shopname;
     }
 
     public String getId() {
@@ -63,6 +61,8 @@ public class Product implements Serializable {
         this.brand = brand;
     }
 
+
+
     public String getModel() {
         return model;
     }
@@ -79,21 +79,6 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public String getRam() {
-        return ram;
-    }
-
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public String getRom() {
-        return rom;
-    }
-
-    public void setRom(String rom) {
-        this.rom = rom;
-    }
 
     public String getName() {
         return name;
@@ -143,5 +128,19 @@ public class Product implements Serializable {
         this.stock_update = stock_update;
     }
 
+    public String getSub_category() {
+        return sub_category;
+    }
 
+    public void setSub_category(String sub_category) {
+        this.sub_category = sub_category;
+    }
+
+    public String getShopname() {
+        return shopname;
+    }
+
+    public void setShopname(String shopname) {
+        this.shopname = shopname;
+    }
 }

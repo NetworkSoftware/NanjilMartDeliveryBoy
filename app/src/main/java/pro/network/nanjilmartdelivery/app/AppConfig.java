@@ -43,7 +43,7 @@ public class AppConfig {
     public static final String shopId = "shopId";
 
     //NetworkSoftware
-    public static final String ip = "http://thestockbazaar.com/admin/e-commerce/nanjilmart";
+    public static final String ip = "http://thestockbazaar.com/prisma/nanjilmart";
     public static final String delivery_id = "delivery_id";
     public static final String IMAGE_URL = ip + "/images/";
     public static final String auth_key = "auth_key";
@@ -63,7 +63,7 @@ public class AppConfig {
     public static final String GET_ALL_DATA = ip + "/get_all_delivery.php";
 
     public static final String ORDER_GET_ALL = ip + "/dataFetchAll_order.php";
-    public static final String TRACK_PRODUCT_ORDER_ID = ip + "/com_track_order_id.php";
+    public static final String TRACK_PRODUCT_ORDER_ID = ip + "/track_order_id.php";
 
 
 

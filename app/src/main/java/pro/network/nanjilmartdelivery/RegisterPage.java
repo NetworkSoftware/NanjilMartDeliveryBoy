@@ -201,7 +201,7 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
                 Log.d("Register Response: ", response);
                 hideDialog();
                 try {
-                    JSONObject jsonObject = new JSONObject(response.split("0000")[1]);
+                    JSONObject jsonObject = new JSONObject(response);
                     int success = jsonObject.getInt("success");
                     String msg = jsonObject.getString("message");
                     if (success==1) {
