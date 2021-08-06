@@ -10,6 +10,7 @@ public interface StatusListener {
     void onCourier(String id);
     void InProgress(Order order );
     void InPicked(Order order);
+    void Bill(Order position);
 
 
 }

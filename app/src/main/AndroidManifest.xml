@@ -38,17 +38,12 @@
             android:name="pro.network.nanjilmartdelivery.LoginActivity"
             android:label="Login"
             android:theme="@style/AppThemeSplash" />
-        <activity
-            android:name="pro.network.nanjilmartdelivery.service.MainActivityService"
-            android:theme="@style/AppThemeMat" />
+
         <activity
             android:name="pro.network.nanjilmartdelivery.product.MainActivityOrder"
             android:theme="@style/AppThemeNo" />
         <activity
             android:name="pro.network.nanjilmartdelivery.NaviActivity"
-            android:theme="@style/AppThemeMat" />
-        <activity
-            android:name="pro.network.nanjilmartdelivery.service.TimelineActivity"
             android:theme="@style/AppThemeMat" />
 
         <activity

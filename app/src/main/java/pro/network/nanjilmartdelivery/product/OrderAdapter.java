@@ -46,6 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Order order = orderListFiltered.get(position);
         holder.price.setText(order.getPrice());
+        holder.order_id.setText("#"+ order.getId());
         holder.quantity.setText(order.getQuantity());
         holder.status.setText(order.getStatus());
         holder.phone.setText(order.getPhone());
@@ -102,6 +103,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 statusListener.onTrackOrder(order.id);
+            }
+        });
+        holder.bill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusListener.Bill(order);
             }
         });
 
@@ -163,17 +170,17 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, price, status, quantity, phone, orderedOn, address, reason;
+        public TextView name, price, status, quantity, phone, orderedOn, address, reason,order_id;
         public ImageView thumbnail;
         public RecyclerView cart_sub_list;
         Button deliveredBtn, whatsapp, call,
-                trackOrder, pickup;
+                trackOrder, pickup,bill;
 
         public MyViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.name);
             orderedOn = view.findViewById(R.id.orderedOn);
-
+            order_id = view.findViewById(R.id.order_id);
             price = view.findViewById(R.id.price);
             name = view.findViewById(R.id.name);
             phone = view.findViewById(R.id.phone);
@@ -188,6 +195,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             reason = view.findViewById(R.id.reason);
             pickup = view.findViewById(R.id.assignDboy);
             trackOrder = view.findViewById(R.id.trackOrder);
+            bill = view.findViewById(R.id.bill);
+
 
 
         }

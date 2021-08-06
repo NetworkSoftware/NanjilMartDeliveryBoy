@@ -22,6 +22,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import java.io.IOException;
 import java.util.Date;
 
+import pro.network.nanjilmartdelivery.product.Order;
+import pro.network.nanjilmartdelivery.product.Product;
 
 
 public class PdfConfig {
@@ -54,7 +56,7 @@ public class PdfConfig {
         document.addCreator("Lars Vogel");
     }
 
-    public static void addContent(Document document, Context context) throws Exception {
+    public static void addContent(Document document, Order mainbean, Context context) throws Exception {
 
         //invoiceFont = new Font(urName, 20, Font.BOLD, greenBase);
 
@@ -65,7 +67,7 @@ public class PdfConfig {
         table1.setWidthPercentage(100);
         table1.setWidths(new int[]{1});
 
-        table1.addCell(createTextCellCenter("Nanjil Mart\nPh:90805 83904", nameFont, true));
+        table1.addCell(createTextCellCenter("Nanjil Eveving Mart\nPh:916381074637", nameFont, true));
 
         table1.setSplitLate(false);
         document.add(table1);
@@ -74,8 +76,8 @@ public class PdfConfig {
         table2.setWidthPercentage(100);
         table2.setWidths(new int[]{1});
 
-      /*  table2.addCell(createTextLeft("Customer Name: " + mainbean.getCustomerName(), catNormalFont, false));
-        table2.addCell(createTextLeft("Mobile No: " + mainbean.getCustomerPhone(), catNormalFont, false));*/
+        table2.addCell(createTextLeft("Customer Name: " + mainbean.getName(), catNormalFont, false));
+        table2.addCell(createTextLeft("Mobile No: " + mainbean.getPhone(), catNormalFont, false));
         String date = "";
 
         Date d = new Date();
@@ -88,22 +90,79 @@ public class PdfConfig {
 
         PdfPTable table3 = new PdfPTable(4);
         table3.setWidthPercentage(100);
-        table3.setWidths(new float[]{0.5f, 0.5f, 2f, 1});
+        table3.setWidths(new float[]{0.5f, 2f, 0.5f, 1});
         table3.addCell(createTextLeft("SNo", catFont, false));
-        table3.addCell(createTextLeft("Model", catFont, false));
-        table3.addCell(createTextLeft("Problems", catFont, false));
+        table3.addCell(createTextLeft("Name", catFont, false));
+        table3.addCell(createTextLeft("Qty", catFont, false));
         table3.addCell(createTextLeft("Price", catFont, false));
 
-
-        table3.addCell(createTextLeft(1 +"", catNormalFont, false));
-       /* table3.addCell(createTextLeft(mainbean.getModel(), catNormalFont, false));
-        table3.addCell(createTextLeft(mainbean.getProblem(), catNormalFont, false));
-        table3.addCell(createTextLeft(mainbean.getAmount(), catNormalFont, false));*/
-
+        for (int i = 0; i < mainbean.getProductBeans().size(); i++) {
+            table3.addCell(createTextLeft((i + 1) + "", catNormalFont, false));
+            Product productListBean = mainbean.getProductBeans().get(i);
+            table3.addCell(createTextLeft(productListBean.getBrand() + "_" + productListBean.getModel(), catNormalFont, false));
+            table3.addCell(createTextLeft(productListBean.getQty(), catNormalFont, false));
+            table3.addCell(createTextLeft(productListBean.getPrice(), catNormalFont, false));
+        }
 
 
         table3.setSplitLate(false);
         document.add(table3);
+        PdfPTable table4 = new PdfPTable(4);
+        table4.setWidthPercentage(100);
+        table4.setWidths(new float[]{0.5f, 2f, 0.5f, 1});
+        table4.addCell(createTextLeft("", catNormalFont, false));
+        table4.addCell(createTextLeft("Item Total", catNormalFont,false));
+        table4.addCell(createTextLeft("", catNormalFont, false));
+        table4.addCell(createTextLeft(mainbean.getPrice(), catNormalFont, false));
+        table4.setSplitLate(false);
+        document.add(table4);
+        PdfPTable table6 = new PdfPTable(4);
+        table6.setWidthPercentage(100);
+        table6.setWidths(new float[]{0.5f, 2f, 0.5f, 1});
+        table6.addCell(createTextLeft("", catNormalFont, false));
+        table6.addCell(createTextLeft("Promocode Discount", catNormalFont,false));
+        table6.addCell(createTextLeft("", catNormalFont, false));
+        table6.addCell(createTextLeft("0.00", catNormalFont, false));
+        table6.setSplitLate(false);
+        document.add(table6);
+
+        PdfPTable table7 = new PdfPTable(4);
+        table7.setWidthPercentage(100);
+        table7.setWidths(new float[]{0.5f, 2f, 0.5f, 1});
+        table7.addCell(createTextLeft("", catNormalFont, false));
+        table7.addCell(createTextLeft("Delivery Fee", catNormalFont,false));
+        table7.addCell(createTextLeft("", catNormalFont, false));
+        table7.addCell(createTextLeft("0.00", catNormalFont, false));
+        table7.setSplitLate(false);
+        document.add(table7);
+        PdfPTable table8 = new PdfPTable(4);
+        table8.setWidthPercentage(100);
+        table8.setWidths(new float[]{0.5f, 2f, 0.5f, 1});
+        table8.addCell(createTextLeft("", catNormalFont, false));
+        table8.addCell(createTextLeft("Packing Charges", catNormalFont,false));
+        table8.addCell(createTextLeft("", catNormalFont, false));
+        table8.addCell(createTextLeft("0.00", catNormalFont, false));
+        table8.setSplitLate(false);
+        document.add(table8);
+        PdfPTable table9 = new PdfPTable(4);
+        table9.setWidthPercentage(100);
+        table3.setWidths(new float[]{0.5f, 2f, 0.5f, 1});
+        table9.addCell(createTextLeft("", catNormalFont, false));
+        table9.addCell(createTextLeft("Tax", catNormalFont,false));
+        table9.addCell(createTextLeft("", catNormalFont, false));
+        table9.addCell(createTextLeft("0.00", catNormalFont, false));
+
+        table9.setSplitLate(false);
+        document.add(table9);
+        PdfPTable table10 = new PdfPTable(4);
+        table10.setWidthPercentage(100);
+        table3.setWidths(new float[]{0.5f, 0.5f,2f, 1});
+        table10.addCell(createTextLeft("", catNormalFont, false));
+        table10.addCell(createTextLeft("", catNormalFont, false));
+        table10.addCell(createTextRight("Grand Total", catNormalFont));
+        table10.addCell(createTextLeft(mainbean.getPrice(), catNormalFont, false));
+        table10.setSplitLate(false);
+        document.add(table10);
 
 
         PdfPTable table5 = new PdfPTable(1);
@@ -111,11 +170,11 @@ public class PdfConfig {
         table5.setWidths(new float[]{1});
         table5.addCell(createTextcenter("\n", catNormalFont, true));
         table5.addCell(createTextcenter("E & OE", subFont, false));
-        table5.addCell(createTextcenter("FOR EXCHANGE POLICY PLEASE VISIT Nanjil Mart", subFont, true));
+        table5.addCell(createTextcenter("FOR EXCHANGE POLICY PLEASE VISIT NANJIL EVENING MART", subFont, true));
         table5.addCell(createTextcenter("Tax Invoice/Bill of Supply -Sale", subFont, false));
       //  table5.addCell(createTextcenter("Bill No: " + AppConfig.intToString(Integer.parseInt(mainbean.getId()), 5) + " Date : " + date, subFont, true));
         table5.addCell(createTextcenter("Its is a computer generated invoice generated original / customer copy", subFont, false));
-        table5.addCell(createTextcenter("***Thank you for you purchase, visit again***", subFont, false));
+        table5.addCell(createTextcenter("***Thank you for you purchase***", subFont, false));
         table5.setSplitLate(false);
         document.add(table5);
     }

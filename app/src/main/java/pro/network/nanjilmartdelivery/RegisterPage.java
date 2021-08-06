@@ -205,10 +205,11 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
                     int success = jsonObject.getInt("success");
                     String msg = jsonObject.getString("message");
                     if (success==1) {
-                        final String delivername = name.getText().toString();
-                        sendNotification(phone.getText().toString()
+                        finish();
+                      //  final String delivername = name.getText().toString();
+                       /* sendNotification(phone.getText().toString()
                                 , delivername.length() > 30 ? delivername.substring(0, 29) + "..." :
-                                        delivername);
+                                        delivername);*/
                         finish();
                     }
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
@@ -399,7 +400,7 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
 
     }
 
-    private void sendNotification(String title, String description) {
+   /* private void sendNotification(String title, String description) {
         String tag_string_req = "req_register";
         showDialog();
         JSONObject jsonObject = new JSONObject();
@@ -445,7 +446,7 @@ public class RegisterPage extends BaseActivity implements Imageutils.ImageAttach
         strReq.setRetryPolicy(AppConfig.getPolicy());
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
-
+*/
 
 }
 

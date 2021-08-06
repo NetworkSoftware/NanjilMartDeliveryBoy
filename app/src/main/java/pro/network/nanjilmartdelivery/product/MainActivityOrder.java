@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,11 +37,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +54,7 @@ import java.util.Map;
 
 import pro.network.nanjilmartdelivery.R;
 import pro.network.nanjilmartdelivery.app.AppController;
+import pro.network.nanjilmartdelivery.app.PdfConfig;
 
 import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_CHANGE_STATUS;
 import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_GET_ALL;
@@ -372,6 +379,68 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
     @Override
     public void InPicked(Order order) {
         statusChange(order.getId(), "Delivery Boy Picked", "Picked By DeliveryBoy");
+    }
+
+    @Override
+    public void Bill(Order position) {
+        printFunction(MainActivityOrder.this, position);
+    }
+
+    public void printFunction(Context context, Order mainbean) {
+
+        try {
+
+            String path = getExternalCacheDir().getPath() + "/PDF";
+            File dir = new File(path);
+            if (!dir.exists())
+                dir.mkdirs();
+            Log.d("PDFCreator", "PDF Path: " + path);
+            File file = new File(dir, mainbean.getName().replace(" ", "_") + "_" + mainbean.getId() + ".pdf");
+            if (file.exists()) {
+                file.delete();
+            }
+            FileOutputStream fOut = new FileOutputStream(file);
+
+            float left = 0;
+            float right = 0;
+            float top = 0;
+            float bottom = 0;
+            com.itextpdf.text.Document document = new Document(new Rectangle(288, 512));
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, fOut);
+
+
+            document.open();
+            PdfConfig.addMetaData(document);
+
+           /* HeaderFooterPageEvent event = new HeaderFooterPageEvent(Image.getInstance(byteArray), Image.getInstance(byteArray1), isDigital, getConfigBean());
+            pdfWriter.setPageEvent(event);*/
+            PdfConfig.addContent(document, mainbean, MainActivityOrder.this);
+
+            document.close();
+
+            Uri fileUri = Uri.fromFile(file);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(intent);
+            } else {
+                Intent target = new Intent(Intent.ACTION_VIEW);
+                target.setDataAndType(Uri.fromFile(file), "application/pdf");
+                Intent intent = Intent.createChooser(target, "Open File");
+                startActivity(intent);
+            }
+            hideDialog();
+            // new UploadInvoiceToServer().execute(imageutils.getPath(fileUri) + "@@" + mainbean.getBuyerphone() + "@@" + mainbean.getDbid());
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            hideDialog();
+        }
+
+
     }
 
 
