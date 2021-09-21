@@ -11,10 +11,11 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
     <item
-        android:id="@+id/action_profile"
-        android:icon="@drawable/ic_baseline_manage_accounts_24"
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_logout_24"
         android:orderInCategory="101"
-        android:title="Search"
+        android:title="Logout"
+        android:iconTint="@color/black"
         app:showAsAction="always"
       />
 

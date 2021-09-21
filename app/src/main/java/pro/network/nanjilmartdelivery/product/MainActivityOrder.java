@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pro.network.nanjilmartdelivery.LoginActivity;
 import pro.network.nanjilmartdelivery.R;
+import pro.network.nanjilmartdelivery.app.AppConfig;
 import pro.network.nanjilmartdelivery.app.AppController;
 import pro.network.nanjilmartdelivery.app.PdfConfig;
 
@@ -153,6 +156,9 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                             order.setAddress(jsonObject.getString("address"));
                             order.setReson(jsonObject.getString("reason"));
                             order.setCreatedOn(jsonObject.getString("createdon"));
+                            order.setTotal(jsonObject.getString("total"));
+                            order.setDcharge(jsonObject.getString("dcharge"));
+                            order.setPincode(jsonObject.getString("pincode"));
                             ObjectMapper mapper = new ObjectMapper();
                             Object listBeans = new Gson().fromJson(jsonObject.getString("items"),
                                     Object.class);
@@ -213,6 +219,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         // Associate searchable configuration with the SearchView
+        //   logout = (ImageView) menu.findItem(R.id.logout);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
@@ -251,9 +258,27 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
+        } else if (id == R.id.logout) {
+            logout();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putBoolean(AppConfig.isLogin, false);
+        editor.remove(AppConfig.name);
+        editor.remove(AppConfig.phone);
+        editor.remove(AppConfig.password);
+        editor.remove(AppConfig.profile);
+        editor.remove(AppConfig.license);
+        editor.remove(AppConfig.aadhar);
+        editor.remove(AppConfig.auth_key);
+        editor.remove(AppConfig.user_id);
+        editor.commit();
+        startActivity(new Intent(MainActivityOrder.this, LoginActivity.class));
+        finishAffinity();
     }
 
     @Override

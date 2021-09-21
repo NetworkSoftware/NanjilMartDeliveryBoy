@@ -20,7 +20,8 @@ public class Product implements Serializable {
     String userId;
     String sub_category;
     String shopname;
-
+    public String shopid;
+    public String latlong;
 
     public Product() {
     }
@@ -142,5 +143,21 @@ public class Product implements Serializable {
 
     public void setShopname(String shopname) {
         this.shopname = shopname;
+    }
+
+    public String getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(String shopid) {
+        this.shopid = shopid;
+    }
+
+    public String getLatlong() {
+        return latlong;
+    }
+
+    public void setLatlong(String latlong) {
+        this.latlong = latlong;
     }
 }
