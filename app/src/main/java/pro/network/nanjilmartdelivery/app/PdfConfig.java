@@ -96,11 +96,11 @@ public class PdfConfig {
         for (int i = 0; i < mainbean.getProductBeans().size(); i++) {
             table3.addCell(createTextLeft((i + 1) + "", catNormalFont, false));
             Product productListBean = mainbean.getProductBeans().get(i);
-            table3.addCell(createTextLeft(productListBean.getBrand() + "_" + productListBean.getModel(), catNormalFont, false));
+            table3.addCell(createTextLeft(productListBean.getBrand() + "_" + productListBean.getModel()
+                    +"\n"+"Shop-" + productListBean.getShopname(), catNormalFont, false));
             table3.addCell(createTextLeft(productListBean.getQty(), catNormalFont, false));
             table3.addCell(createTextLeft(productListBean.getPrice(), catNormalFont, false));
         }
-
 
         table3.setSplitLate(false);
         document.add(table3);
@@ -146,7 +146,6 @@ public class PdfConfig {
         table5.addCell(createTextcenter("E & OE", subFont, false));
         table5.addCell(createTextcenter("FOR EXCHANGE POLICY PLEASE VISIT NANJIL EVENING MART", subFont, true));
         table5.addCell(createTextcenter("Tax Invoice/Bill of Supply -Sale", subFont, false));
-      //  table5.addCell(createTextcenter("Bill No: " + AppConfig.intToString(Integer.parseInt(mainbean.getId()), 5) + " Date : " + date, subFont, true));
         table5.addCell(createTextcenter("Its is a computer generated invoice generated original / customer copy", subFont, false));
         table5.addCell(createTextcenter("***Thank you for you purchase***", subFont, false));
         table5.setSplitLate(false);
@@ -164,7 +163,6 @@ public class PdfConfig {
         return cell;
     }
 
-
     public static PdfPCell createTable(PdfPTable pTable, int padding, BaseColor baseColor, boolean isBorder) throws DocumentException, IOException {
 
         PdfPCell cell = new PdfPCell();
@@ -181,7 +179,6 @@ public class PdfConfig {
         cell.setBackgroundColor(baseColor);
         return cell;
     }
-
 
     public static PdfPCell createTextRight(String text, Font font) throws DocumentException, IOException {
         PdfPCell cell = new PdfPCell();
@@ -221,8 +218,6 @@ public class PdfConfig {
         }
         return cell;
     }
-
-
 
     public static PdfPCell createTextCellLeftRight(String text, Font font) throws DocumentException, IOException {
         PdfPCell cell = new PdfPCell();

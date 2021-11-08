@@ -43,6 +43,7 @@ public class AppConfig {
     public static final String shopId = "shopId";
 
     //NetworkSoftware
+   // public static final String ip = "http://192.168.1.101:8098/prisma/nanjilmart";
     public static final String ip = "http://thestockbazaar.com/prisma/nanjilmart";
     public static final String delivery_id = "delivery_id";
     public static final String IMAGE_URL = ip + "/images/";

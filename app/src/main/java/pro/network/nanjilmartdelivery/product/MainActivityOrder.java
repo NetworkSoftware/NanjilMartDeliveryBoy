@@ -176,7 +176,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                         }
                         mAdapter.notifyData(orderList);
                         deliverAdapter.notifyData(deliveredList);
-                        getSupportActionBar().setSubtitle("Orders - " + orderList.size());
+                        getSupportActionBar().setSubtitle("Orders - " + deliveredList.size());
 
                     } else {
                         Toast.makeText(getApplication(), jObj.getString("message"), Toast.LENGTH_SHORT).show();
@@ -184,7 +184,6 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                 } catch (JSONException e) {
                     Log.e("xxxxxxxxxxx", e.toString());
                     Toast.makeText(getApplication(), "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
-
                 }
                 hideDialog();
 
@@ -211,7 +210,6 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     @Override
@@ -248,9 +246,6 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();

@@ -50,9 +50,9 @@ public class OrderListSubAdapter extends RecyclerView.Adapter<OrderListSubAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Product myorderBean = myorderBeans.get(position);
-        holder.qty.setText(myorderBean.getQty() + " "+myorderBean.getBrand()+" - "+myorderBean.getModel());
-//        ArrayList<String> images = new Gson().fromJson(myorderBean.getImage(), (Type) List.class);
-
+        holder.qty.setText("Qty: " + myorderBean.getQty());
+        holder.productName.setText(myorderBean.getBrand() + " - " + myorderBean.getModel());
+        holder.shopName.setText("Shop:" + myorderBean.getShopname());
         GlideApp.with(mainActivityUser)
                 .load(AppConfig.getResizedImage(myorderBean.getImage(), true))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -70,12 +70,15 @@ public class OrderListSubAdapter extends RecyclerView.Adapter<OrderListSubAdapte
 
         private final ImageView product_image;
         private final TextView qty;
-
+        private final TextView productName;
+        private final TextView shopName;
 
         public MyViewHolder(View view) {
             super((view));
-            product_image = (ImageView) view.findViewById(R.id.product_image);
-            qty = (TextView) view.findViewById(R.id.qty);
+            product_image = view.findViewById(R.id.product_image);
+            qty = view.findViewById(R.id.qty);
+            productName = view.findViewById(R.id.productName);
+            shopName = view.findViewById(R.id.shopName);
 
         }
     }

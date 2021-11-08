@@ -30,7 +30,6 @@ import pro.network.nanjilmartdelivery.app.AppController;
 import static pro.network.nanjilmartdelivery.app.AppConfig.TRACK_PRODUCT_ORDER_ID;
 
 public class Order_TimelineActivity extends AppCompatActivity {
-
     ProgressDialog progressDialog;
     private RecyclerView recycler;
 
