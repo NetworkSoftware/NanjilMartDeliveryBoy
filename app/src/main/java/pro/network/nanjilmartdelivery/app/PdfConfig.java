@@ -64,7 +64,7 @@ public class PdfConfig {
         table1.setWidthPercentage(100);
         table1.setWidths(new int[]{1});
 
-        table1.addCell(createTextCellCenter("Nanjil Eveving Mart\nPh:916381074637", nameFont, true));
+        table1.addCell(createTextCellCenter("Nanjil Eveving Mart\nPh:919994526713", nameFont, true));
 
         table1.setSplitLate(false);
         document.add(table1);
@@ -96,10 +96,23 @@ public class PdfConfig {
         for (int i = 0; i < mainbean.getProductBeans().size(); i++) {
             table3.addCell(createTextLeft((i + 1) + "", catNormalFont, false));
             Product productListBean = mainbean.getProductBeans().get(i);
+            String shop;
+            if("NA".equalsIgnoreCase(productListBean.getShopname())){
+                shop = "";
+            }else {
+                shop = "Shop-"+productListBean.getShopname();
+            }
             table3.addCell(createTextLeft(productListBean.getBrand() + "_" + productListBean.getModel()
-                    +"\n"+"Shop-" + productListBean.getShopname(), catNormalFont, false));
+                    +"\n"+shop, catNormalFont, false));
             table3.addCell(createTextLeft(productListBean.getQty(), catNormalFont, false));
-            table3.addCell(createTextLeft(productListBean.getPrice(), catNormalFont, false));
+            String subProduct;
+            if(productListBean.getSubProduct() == null){
+                subProduct = productListBean.getQty();
+            }else {
+                subProduct = productListBean.getSubProduct();
+            }
+            table3.addCell(createTextLeft("Rs."+productListBean.getPrice()+"/"+subProduct, catNormalFont, false));
+
         }
 
         table3.setSplitLate(false);

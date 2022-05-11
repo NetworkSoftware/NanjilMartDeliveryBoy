@@ -16,5 +16,5 @@
     <color name="gry">#E4E2E2</color>
     <color name="textColor">#585858</color>
     <color name="colorTex">#585858</color>
-
+    <color name="light_gray">#EAEAEA</color>
 </resources>

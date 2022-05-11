@@ -8,6 +8,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import pro.network.nanjilmartdelivery.app.AppConfig;
 
 public class SplashActivity extends AppCompatActivity {
@@ -22,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(AppConfig.mypreference,
                 Context.MODE_PRIVATE);
-
+        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_"
+                + sharedpreferences.getString(AppConfig.user_id, ""));
         Thread logoTimer = new Thread() {
             public void run() {
                 try {

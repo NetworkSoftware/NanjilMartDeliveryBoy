@@ -45,7 +45,9 @@
         <activity
             android:name="pro.network.nanjilmartdelivery.NaviActivity"
             android:theme="@style/AppThemeNo" />
-
+        <activity
+            android:name=".wallet.WalletActivity"
+            android:theme="@style/AppThemeAc" />
         <activity
             android:name="pro.network.nanjilmartdelivery.SettingsActivity"
             android:theme="@style/AppThemeMat" />
@@ -57,7 +59,11 @@
             android:name="pro.network.nanjilmartdelivery.RegisterPage"
             android:label="Register"
             android:theme="@style/AppThemeNowhite" />
-
+        <activity
+            android:name=".map.MapsActivity"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD7RIgl0JNy43L6N2n7PpK38-Mzqnk9DRE"/>
         <provider
             android:name="pro.network.nanjilmartdelivery.app.GenericFileProvider"
             android:authorities="pro.network.nanjilmartdelivery.provider"

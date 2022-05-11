@@ -66,7 +66,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.pickup.setVisibility(View.GONE);
             holder.deliveredBtn.setVisibility(View.GONE);
         }
-
+        if ("NA".equalsIgnoreCase(order.subProduct)) {
+            holder.subProduct.setVisibility(View.GONE);
+            holder.subProduct.setText("");
+        } else {
+            holder.subProduct.setVisibility(View.VISIBLE);
+            holder.subProduct.setText("Sub Product Type : "+order.subProduct);
+        }
 
         OrderListSubAdapter OrderListAdapter = new OrderListSubAdapter(context, order.productBeans);
         final LinearLayoutManager addManager1 = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -98,7 +104,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 statusListener.onCallClick(order.phone);
             }
         });
-
         holder.trackOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +116,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 statusListener.Bill(order);
             }
         });
-
+        holder.location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusListener.onLocation(order);
+            }
+        });
 
     }
 
@@ -170,7 +180,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, price, status, quantity, phone, orderedOn, address, reason,order_id;
+        public TextView name, price, status, quantity,
+                phone, orderedOn, address, reason,order_id,location,subProduct;
         public ImageView thumbnail;
         public RecyclerView cart_sub_list;
         Button deliveredBtn, whatsapp, call,
@@ -190,13 +201,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             cart_sub_list = view.findViewById(R.id.cart_sub_list);
             deliveredBtn = view.findViewById(R.id.deliveredBtn);
             whatsapp = view.findViewById(R.id.whatsapp);
+            subProduct = view.findViewById(R.id.subProduct);
             call = view.findViewById(R.id.call);
             address = view.findViewById(R.id.address);
             reason = view.findViewById(R.id.reason);
             pickup = view.findViewById(R.id.assignDboy);
             trackOrder = view.findViewById(R.id.trackOrder);
             bill = view.findViewById(R.id.bill);
-
+            location = view.findViewById(R.id.location);
 
 
         }

@@ -9,14 +9,20 @@
         android:title="Search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
-
+    <item
+        android:id="@+id/wallet"
+        android:icon="@drawable/ic_baseline_account_balance_wallet_24"
+        android:orderInCategory="101"
+        android:title="Wallet"
+        android:iconTint="@color/black"
+        app:showAsAction="always"
+        />
     <item
         android:id="@+id/logout"
         android:icon="@drawable/ic_baseline_logout_24"
         android:orderInCategory="101"
         android:title="Logout"
         android:iconTint="@color/black"
-        app:showAsAction="always"
-      />
+        app:showAsAction="always" />
 
 </menu>

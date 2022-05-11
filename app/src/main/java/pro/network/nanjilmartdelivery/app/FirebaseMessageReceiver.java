@@ -94,8 +94,4 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000, service);
     }
 
-
-    //app part ready now let see how to send differnet users
-    //like send to specific device
-    //like specifi topic
 }

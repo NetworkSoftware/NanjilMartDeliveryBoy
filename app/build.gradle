@@ -10,8 +10,8 @@ android {
         applicationId "pro.network.nanjilmartdelivery"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 7
+        versionName "1.0.7"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -59,6 +59,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -78,6 +79,7 @@ dependencies {
     implementation files('libs/httpmime-4.3.6.jar')
     implementation files('libs/httpclient-4.3.6.jar')
     implementation files('libs/httpcore-4.3.3.jar')
+    implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1'
     // location play services
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation (
@@ -89,6 +91,7 @@ dependencies {
     implementation 'com.itextpdf:itextg:5.5.9'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
     implementation 'com.github.repsly:TimelineView:v1.2'
-
+    implementation 'com.google.firebase:firebase-core:17.4.4'
 
 }
+apply plugin: 'com.google.gms.google-services'

@@ -22,13 +22,17 @@ public class Order implements Serializable {
     String createdOn;
     String description;
     String dcharge;
-    String pincode;
-    String total;
+    String pincode,qtyPrice;
+    String total,paymentId,paymentMode,latlong,subProduct,strikeoutAmt;
 
     public Order() {
     }
 
-    public Order(String items, String quantity, String price, String status, String name, String phone, String address, String reson, ArrayList<Product> productBeans, String createdOn, String description) {
+    public Order(String items, String quantity, String price, String status,
+                 String name, String phone, String address, String reson,
+                 ArrayList<Product> productBeans, String createdOn,
+                 String description,String paymentId,String paymentMode,
+                 String qtyPrice,String subProduct,String strikeoutAmt) {
         this.items = items;
         this.quantity = quantity;
         this.price = price;
@@ -40,6 +44,11 @@ public class Order implements Serializable {
         this.productBeans = productBeans;
         this.createdOn = createdOn;
         this.description = description;
+        this.paymentId = paymentId;
+        this.paymentMode = paymentMode;
+        this.qtyPrice = qtyPrice;
+        this.subProduct = subProduct;
+        this.strikeoutAmt = strikeoutAmt;
     }
 
     public String getId() {
@@ -160,5 +169,53 @@ public class Order implements Serializable {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    public String getLatlong() {
+        return latlong;
+    }
+
+    public void setLatlong(String latlong) {
+        this.latlong = latlong;
+    }
+
+    public String getQtyPrice() {
+        return qtyPrice;
+    }
+
+    public void setQtyPrice(String qtyPrice) {
+        this.qtyPrice = qtyPrice;
+    }
+
+    public String getSubProduct() {
+        return subProduct;
+    }
+
+    public void setSubProduct(String subProduct) {
+        this.subProduct = subProduct;
+    }
+
+    public String getStrikeoutAmt() {
+        return strikeoutAmt;
+    }
+
+    public void setStrikeoutAmt(String strikeoutAmt) {
+        this.strikeoutAmt = strikeoutAmt;
     }
 }

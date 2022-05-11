@@ -17,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,11 +27,8 @@ import java.util.regex.Pattern;
 
 public class AppConfig {
 
-    public static DecimalFormat decimalFormat = new DecimalFormat("0");
-    public static DecimalFormat decimalNewFormat = new DecimalFormat("0.0");
-    public static final String mypreference = "mypref";
-    public static final String shopIdKey = "shopIdKey";
 
+    public static final String mypreference = "mypref";
     public static final String name = "name";
     public static final String user_id = "user_id";
     public static final String profile = "profile";
@@ -41,32 +37,22 @@ public class AppConfig {
     public static final String phone = "phone";
     public static final String password = "password";
     public static final String shopId = "shopId";
-
     //NetworkSoftware
-   // public static final String ip = "http://192.168.1.101:8098/prisma/nanjilmart";
+   // public static final String ip = "http://192.168.1.204:8098/prisma/nanjilmart";
     public static final String ip = "http://thestockbazaar.com/prisma/nanjilmart";
     public static final String delivery_id = "delivery_id";
     public static final String IMAGE_URL = ip + "/images/";
     public static final String auth_key = "auth_key";
     public static final String isLogin = "true";
-    public static String URL_IMAGE_UPLOAD = ip + "/fileUpload.php";
     public static final String LOGIN_USER = ip + "/delivery_login.php";
-
-
-     public static final String SERVICE_GET_ALL = ip + "/dataFetchAll_service.php";
-    public static final String TRACK_ORDER_ID = ip + "/track_order_id.php";
-
-    public static final String SERVICE_CHANGE_STATUS = ip + "/service_change_status.php";
-
-   //Create Delivery boy
-   public static final String CREATE_DATA = ip + "/delivery_register.php";
-
-    public static final String GET_ALL_DATA = ip + "/get_all_delivery.php";
-
+    //Create Delivery boy
+    public static final String CREATE_DATA = ip + "/delivery_register.php";
+    public static final String WALLET = ip + "/wallet";
     public static final String ORDER_GET_ALL = ip + "/dataFetchAll_order.php";
     public static final String TRACK_PRODUCT_ORDER_ID = ip + "/track_order_id.php";
-
-
+    public static final String ORDER_CHANGE_STATUS = ip + "/order_change_status.php";
+    public static final String FETCH_ADDRESS = ip + "/fetch_address.php";
+    public static String URL_IMAGE_UPLOAD = ip + "/fileUpload.php";
 
     public static void openPdfFile(Context context, String name) {
         File fileBrochure = new File(Environment.getExternalStorageDirectory() + "/" + name);
@@ -87,6 +73,7 @@ public class AppConfig {
             Toast.makeText(context, "NO Pdf Viewer", Toast.LENGTH_SHORT).show();
         }
     }
+
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
         while (output.length() < digits) output = "0" + output;
@@ -98,13 +85,17 @@ public class AppConfig {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, msg, null, null);
         } catch (Exception ex) {
-            Toast.makeText(context, ex.getMessage().toString(),
+            Toast.makeText(context, ex.getMessage(),
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
     }
-
-
+    public static DefaultRetryPolicy getTimeOut() {
+        return new DefaultRetryPolicy(
+                50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
     //method to write the PDFs file to sd card
     private static void CopyAssetsbrochure(Context context, String name) {
         AssetManager assetManager = context.getAssets();
@@ -135,6 +126,7 @@ public class AppConfig {
             }
         }
     }
+
     public static String convertTimeToLocal(String time) {
         try {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
@@ -184,7 +176,7 @@ public class AppConfig {
 
     public static String getResizedImage(String path, boolean isResized) {
         if (isResized) {
-            return IMAGE_URL+"small/"+path.substring(path.lastIndexOf("/")+1);
+            return IMAGE_URL + "small/" + path.substring(path.lastIndexOf("/") + 1);
         }
         return path;
     }
@@ -211,8 +203,5 @@ public class AppConfig {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
-
-    public static final String ORDER_CHANGE_STATUS = ip + "/order_change_status.php";
-    public static final String FETCH_ADDRESS = ip + "/fetch_address.php";
 
 }

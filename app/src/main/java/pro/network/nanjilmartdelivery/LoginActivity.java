@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONObject;
 
@@ -128,6 +129,8 @@ public class LoginActivity extends AppCompatActivity {
                     int success = jObj.getInt("success");
                     String msg = jObj.getString("message");
                     if (success == 1) {
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("allDevices_"
+                                + sharedpreferences.getString(AppConfig.user_id, ""));
                         String auth_key = jObj.getString("auth_key");
                         String user_id = jObj.getString("user_id");
                         String name = jObj.getString("name");
@@ -149,6 +152,8 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString(AppConfig.auth_key, auth_key);
                         editor.putString(AppConfig.user_id, user_id);
                         editor.commit();
+                        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_" + jObj.getString("user_id"));
+
                         startActivity(new Intent(LoginActivity.this, MainActivityOrder.class));
                         finish();
 

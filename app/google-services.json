@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "569443085540",
-    "project_id": "nanjilmartdboy",
-    "storage_bucket": "nanjilmartdboy.appspot.com"
+    "project_number": "714581682526",
+    "project_id": "nanjilmartdelivery",
+    "storage_bucket": "nanjilmartdelivery.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:569443085540:android:2540dfdcb861b69a5610f1",
+        "mobilesdk_app_id": "1:714581682526:android:75907e1fc4b80cdbdd07cf",
         "android_client_info": {
           "package_name": "pro.network.nanjilmartdelivery"
         }
       },
       "oauth_client": [
         {
-          "client_id": "569443085540-1rr1e2273beis6f1msdg0c6vb91vf73o.apps.googleusercontent.com",
+          "client_id": "714581682526-5a7l9conr5t3dck9p3qo1ndd9ma05jpn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABmRMDunbI-TPMon32tFzwq32AOMfMd40"
+          "current_key": "AIzaSyB4a-iBVmNe94cZxcajeDBeU7vkON0iWHc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "569443085540-1rr1e2273beis6f1msdg0c6vb91vf73o.apps.googleusercontent.com",
+              "client_id": "714581682526-5a7l9conr5t3dck9p3qo1ndd9ma05jpn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

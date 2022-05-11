@@ -37,6 +37,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Rectangle;
@@ -58,6 +59,8 @@ import pro.network.nanjilmartdelivery.R;
 import pro.network.nanjilmartdelivery.app.AppConfig;
 import pro.network.nanjilmartdelivery.app.AppController;
 import pro.network.nanjilmartdelivery.app.PdfConfig;
+import pro.network.nanjilmartdelivery.map.MapsActivity;
+import pro.network.nanjilmartdelivery.wallet.WalletActivity;
 
 import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_CHANGE_STATUS;
 import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_GET_ALL;
@@ -70,8 +73,6 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
     ProgressDialog progressDialog;
 
     int offset = 0;
-    ArrayList<String> dboysName = new ArrayList<>();
-    Map<String, String> idNameMap = new HashMap<>();
     private RecyclerView recyclerView;
     private List<Order> orderList;
     private OrderAdapter mAdapter;
@@ -96,6 +97,9 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         // getSupportActionBar().setTitle(R.string.order);
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        FirebaseMessaging.getInstance().subscribeToTopic("allDevices_"
+                + sharedpreferences.getString(AppConfig.user_id, ""));
+
         recyclerView = findViewById(R.id.recycler_view);
         orderList = new ArrayList<>();
         mAdapter = new OrderAdapter(this, orderList, this, this);
@@ -157,8 +161,15 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                             order.setReson(jsonObject.getString("reason"));
                             order.setCreatedOn(jsonObject.getString("createdon"));
                             order.setTotal(jsonObject.getString("total"));
+                            order.setSubProduct(jsonObject.getString("subProduct"));
                             order.setDcharge(jsonObject.getString("dcharge"));
                             order.setPincode(jsonObject.getString("pincode"));
+                            if(jsonObject.has("strikeoutAmt")){
+                                order.setStrikeoutAmt(jsonObject.getString("strikeoutAmt"));
+                            }
+                            order.setLatlong(jsonObject.getString("latlong"));
+                            order.setPaymentMode(jsonObject.getString("paymentMode"));
+                            order.setPaymentId(jsonObject.getString("paymentId"));
                             ObjectMapper mapper = new ObjectMapper();
                             Object listBeans = new Gson().fromJson(jsonObject.getString("items"),
                                     Object.class);
@@ -255,7 +266,11 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
             return true;
         } else if (id == R.id.logout) {
             logout();
+        }else if (id == R.id.wallet) {
+            Intent intent3 = new Intent(MainActivityOrder.this, WalletActivity.class);
+            startActivity(intent3);
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -344,40 +359,6 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         startActivity(intent);
     }
 
-    @Override
-    public void onCancelClick(final String id) {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivityOrder.this);
-        LayoutInflater inflater = MainActivityOrder.this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.alert_dialog, null);
-        TextView title = dialogView.findViewById(R.id.title);
-        final TextInputEditText reason = dialogView.findViewById(R.id.address);
-
-
-        title.setText("* Do you want to cancel this order? If yes Order will be canceled.");
-        dialogBuilder.setTitle("Alert")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (reason.getText().toString().length() > 0) {
-                            statusChange(id, "canceled", reason.getText().toString());
-                            dialog.cancel();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Enter valid reason", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
-        dialogBuilder.setView(dialogView);
-        final AlertDialog b = dialogBuilder.create();
-        b.setCancelable(false);
-        b.show();
-    }
 
     @Override
     public void onTrackOrder(String id) {
@@ -386,15 +367,6 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         startActivity(intent);
     }
 
-    @Override
-    public void onCourier(String id) {
-
-    }
-
-    @Override
-    public void InProgress(Order order) {
-        statusChange(order.getId(), "InProgress", "InProgress By Admin");
-    }
 
     @Override
     public void InPicked(Order order) {
@@ -404,6 +376,17 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
     @Override
     public void Bill(Order position) {
         printFunction(MainActivityOrder.this, position);
+    }
+
+    @Override
+    public void onLocation(Order order) {
+        Intent intent = new Intent(MainActivityOrder.this, MapsActivity.class);
+        String names = order.latlong;
+        String[] namesList = names.split(",");
+        intent.putExtra("Latitude",namesList [0]);
+        intent.putExtra("Longitude",namesList [1]);
+        intent.putExtra("Address",order.address);
+        startActivity(intent);
     }
 
     public void printFunction(Context context, Order mainbean) {

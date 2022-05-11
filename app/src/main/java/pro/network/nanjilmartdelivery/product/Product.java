@@ -18,10 +18,12 @@ public class Product implements Serializable {
     String qty;
     String stock_update;
     String userId;
+    String qtyPrice;
     String sub_category;
     String shopname;
+    String dCost;
     public String shopid;
-    public String latlong;
+    public String latlong,subProduct,strikeoutAmt;
 
     public Product() {
     }
@@ -34,7 +36,9 @@ public class Product implements Serializable {
         this.userId = userId;
     }
 
-    public Product(String brand, String model, String price, String name, String image, String description, String category, String sub_category, String shopname) {
+    public Product(String brand, String model, String price, String name,
+                   String image, String description, String category, String sub_category,
+                   String shopname,String qtyPrice,String subProduct,String strikeoutAmt) {
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -44,6 +48,17 @@ public class Product implements Serializable {
         this.category = category;
         this.sub_category = sub_category;
         this.shopname = shopname;
+        this.qtyPrice = qtyPrice;
+        this.subProduct = subProduct;
+        this.strikeoutAmt = strikeoutAmt;
+    }
+
+    public String getdCost() {
+        return dCost;
+    }
+
+    public void setdCost(String dCost) {
+        this.dCost = dCost;
     }
 
     public String getId() {
@@ -159,5 +174,29 @@ public class Product implements Serializable {
 
     public void setLatlong(String latlong) {
         this.latlong = latlong;
+    }
+
+    public String getQtyPrice() {
+        return qtyPrice;
+    }
+
+    public void setQtyPrice(String qtyPrice) {
+        this.qtyPrice = qtyPrice;
+    }
+
+    public String getSubProduct() {
+        return subProduct;
+    }
+
+    public void setSubProduct(String subProduct) {
+        this.subProduct = subProduct;
+    }
+
+    public String getStrikeoutAmt() {
+        return strikeoutAmt;
+    }
+
+    public void setStrikeoutAmt(String strikeoutAmt) {
+        this.strikeoutAmt = strikeoutAmt;
     }
 }
