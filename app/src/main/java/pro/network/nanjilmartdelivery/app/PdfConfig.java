@@ -141,6 +141,11 @@ public class PdfConfig {
 
         table7.addCell(createTextLeft("", catNormalFont, false));
         table7.addCell(createTextLeft("", catNormalFont, false));
+        table7.addCell(createTextRight("GST Amount", catNormalFont));
+        table7.addCell(createTextLeft(mainbean.getGstAmt(), catNormalFont, false));
+
+        table7.addCell(createTextLeft("", catNormalFont, false));
+        table7.addCell(createTextLeft("", catNormalFont, false));
         table7.addCell(createTextRight("Packing Charges", catNormalFont));
         table7.addCell(createTextLeft("₹20.00", catNormalFont, false));
 

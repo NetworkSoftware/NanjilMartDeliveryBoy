@@ -23,7 +23,7 @@ public class Order implements Serializable {
     String description;
     String dcharge;
     String pincode,qtyPrice;
-    String total,paymentId,paymentMode,latlong,subProduct,strikeoutAmt;
+    String total,paymentId,paymentMode,latlong,subProduct,strikeoutAmt,gstAmt;
 
     public Order() {
     }
@@ -32,7 +32,7 @@ public class Order implements Serializable {
                  String name, String phone, String address, String reson,
                  ArrayList<Product> productBeans, String createdOn,
                  String description,String paymentId,String paymentMode,
-                 String qtyPrice,String subProduct,String strikeoutAmt) {
+                 String qtyPrice,String subProduct,String strikeoutAmt,String gstAmt) {
         this.items = items;
         this.quantity = quantity;
         this.price = price;
@@ -49,6 +49,15 @@ public class Order implements Serializable {
         this.qtyPrice = qtyPrice;
         this.subProduct = subProduct;
         this.strikeoutAmt = strikeoutAmt;
+        this.gstAmt = gstAmt;
+    }
+
+    public String getGstAmt() {
+        return gstAmt;
+    }
+
+    public void setGstAmt(String gstAmt) {
+        this.gstAmt = gstAmt;
     }
 
     public String getId() {

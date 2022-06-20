@@ -49,6 +49,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.order_id.setText("#"+ order.getId());
         holder.quantity.setText(order.getQuantity());
         holder.status.setText(order.getStatus());
+        holder.gstAmt.setText(order.gstAmt);
         holder.phone.setText(order.getPhone());
         holder.name.setText(order.getName());
         holder.address.setText(order.getAddress());
@@ -181,7 +182,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, price, status, quantity,
-                phone, orderedOn, address, reason,order_id,location,subProduct;
+                phone, orderedOn,gstAmt, address, reason,order_id,location,subProduct;
         public ImageView thumbnail;
         public RecyclerView cart_sub_list;
         Button deliveredBtn, whatsapp, call,
@@ -194,6 +195,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             order_id = view.findViewById(R.id.order_id);
             price = view.findViewById(R.id.price);
             name = view.findViewById(R.id.name);
+            gstAmt = view.findViewById(R.id.gstAmt);
             phone = view.findViewById(R.id.phone);
             status = view.findViewById(R.id.status);
             quantity = view.findViewById(R.id.quantity);
