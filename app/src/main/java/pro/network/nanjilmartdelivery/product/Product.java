@@ -23,7 +23,7 @@ public class Product implements Serializable {
     String shopname;
     String dCost;
     public String shopid;
-    public String latlong,subProduct,strikeoutAmt;
+    public String latlong,subProduct,strikeoutAmt,category_enabled,shop_enabled,time_periods;
 
     public Product() {
     }
@@ -38,7 +38,8 @@ public class Product implements Serializable {
 
     public Product(String brand, String model, String price, String name,
                    String image, String description, String category, String sub_category,
-                   String shopname,String qtyPrice,String subProduct,String strikeoutAmt) {
+                   String shopname,String qtyPrice,String subProduct,String strikeoutAmt,
+                   String category_enabled,String shop_enabled,String time_periods) {
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -51,6 +52,33 @@ public class Product implements Serializable {
         this.qtyPrice = qtyPrice;
         this.subProduct = subProduct;
         this.strikeoutAmt = strikeoutAmt;
+        this.category_enabled = category_enabled;
+        this.shop_enabled = shop_enabled;
+        this.time_periods = time_periods;
+    }
+
+    public String getTime_periods() {
+        return time_periods;
+    }
+
+    public void setTime_periods(String time_periods) {
+        this.time_periods = time_periods;
+    }
+
+    public String getCategory_enabled() {
+        return category_enabled;
+    }
+
+    public void setCategory_enabled(String category_enabled) {
+        this.category_enabled = category_enabled;
+    }
+
+    public String getShop_enabled() {
+        return shop_enabled;
+    }
+
+    public void setShop_enabled(String shop_enabled) {
+        this.shop_enabled = shop_enabled;
     }
 
     public String getdCost() {
