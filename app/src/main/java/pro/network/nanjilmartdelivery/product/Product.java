@@ -21,9 +21,10 @@ public class Product implements Serializable {
     String qtyPrice;
     String sub_category;
     String shopname;
-    String dCost;
+    String dCost,offer;
     public String shopid;
-    public String latlong,subProduct,strikeoutAmt,category_enabled,shop_enabled,time_periods;
+    public String latlong,subProduct,strikeoutAmt,category_enabled,
+            shop_enabled,time_periods,offerImage,offerPercent;
 
     public Product() {
     }
@@ -39,7 +40,8 @@ public class Product implements Serializable {
     public Product(String brand, String model, String price, String name,
                    String image, String description, String category, String sub_category,
                    String shopname,String qtyPrice,String subProduct,String strikeoutAmt,
-                   String category_enabled,String shop_enabled,String time_periods) {
+                   String category_enabled,String shop_enabled,
+                   String time_periods,String offer,String offerImage,String offerPercent) {
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -55,6 +57,33 @@ public class Product implements Serializable {
         this.category_enabled = category_enabled;
         this.shop_enabled = shop_enabled;
         this.time_periods = time_periods;
+        this.offer = offer;
+        this.offerImage = offerImage;
+        this.offerPercent = offerPercent;
+    }
+
+    public String getOfferImage() {
+        return offerImage;
+    }
+
+    public void setOfferImage(String offerImage) {
+        this.offerImage = offerImage;
+    }
+
+    public String getOfferPercent() {
+        return offerPercent;
+    }
+
+    public void setOfferPercent(String offerPercent) {
+        this.offerPercent = offerPercent;
+    }
+
+    public String getOffer() {
+        return offer;
+    }
+
+    public void setOffer(String offer) {
+        this.offer = offer;
     }
 
     public String getTime_periods() {
