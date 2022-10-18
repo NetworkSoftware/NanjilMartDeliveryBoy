@@ -23,7 +23,9 @@ public class Order implements Serializable {
     String description;
     String dcharge;
     String pincode,qtyPrice;
+    String paymentProgress;
     String total,paymentId,paymentMode,latlong,subProduct,strikeoutAmt,gstAmt;
+    String shopLatlong;
 
     public Order() {
     }
@@ -50,6 +52,22 @@ public class Order implements Serializable {
         this.subProduct = subProduct;
         this.strikeoutAmt = strikeoutAmt;
         this.gstAmt = gstAmt;
+    }
+
+    public String getShopLatlong() {
+        return shopLatlong;
+    }
+
+    public void setShopLatlong(String shopLatlong) {
+        this.shopLatlong = shopLatlong;
+    }
+
+    public String getPaymentProgress() {
+        return paymentProgress;
+    }
+
+    public void setPaymentProgress(String paymentProgress) {
+        this.paymentProgress = paymentProgress;
     }
 
     public String getGstAmt() {

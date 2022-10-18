@@ -1,5 +1,10 @@
 package pro.network.nanjilmartdelivery.product;
 
+import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_CHANGE_STATUS;
+import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_GET_ALL;
+import static pro.network.nanjilmartdelivery.app.AppConfig.mypreference;
+import static pro.network.nanjilmartdelivery.app.AppConfig.user_id;
+
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
@@ -16,8 +21,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -36,7 +41,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.itextpdf.text.Document;
@@ -59,13 +64,7 @@ import pro.network.nanjilmartdelivery.R;
 import pro.network.nanjilmartdelivery.app.AppConfig;
 import pro.network.nanjilmartdelivery.app.AppController;
 import pro.network.nanjilmartdelivery.app.PdfConfig;
-import pro.network.nanjilmartdelivery.map.MapsActivity;
 import pro.network.nanjilmartdelivery.wallet.WalletActivity;
-
-import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_CHANGE_STATUS;
-import static pro.network.nanjilmartdelivery.app.AppConfig.ORDER_GET_ALL;
-import static pro.network.nanjilmartdelivery.app.AppConfig.mypreference;
-import static pro.network.nanjilmartdelivery.app.AppConfig.user_id;
 
 
 public class MainActivityOrder extends AppCompatActivity implements OrderAdapter.ContactsAdapterListener, StatusListener {
@@ -73,6 +72,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
     ProgressDialog progressDialog;
 
     int offset = 0;
+    Button loadMore;
     private RecyclerView recyclerView;
     private List<Order> orderList;
     private OrderAdapter mAdapter;
@@ -91,7 +91,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-
+        loadMore = findViewById(R.id.loadMore);
         // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // getSupportActionBar().setTitle(R.string.order);
@@ -123,8 +123,12 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         recycler_view_delivered.setLayoutManager(deliManager);
         recycler_view_delivered.setAdapter(deliverAdapter);
 
-
-        fetchContacts();
+        loadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchContacts();
+            }
+        });
     }
 
     private void fetchContacts() {
@@ -165,8 +169,11 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                             order.setSubProduct(jsonObject.getString("subProduct"));
                             order.setDcharge(jsonObject.getString("dcharge"));
                             order.setPincode(jsonObject.getString("pincode"));
-                            if(jsonObject.has("strikeoutAmt")){
+                            if (jsonObject.has("strikeoutAmt")) {
                                 order.setStrikeoutAmt(jsonObject.getString("strikeoutAmt"));
+                            }
+                            if (jsonObject.has("paymentProgress")) {
+                                order.setPaymentProgress(jsonObject.getString("paymentProgress"));
                             }
                             order.setLatlong(jsonObject.getString("latlong"));
                             order.setPaymentMode(jsonObject.getString("paymentMode"));
@@ -179,6 +186,10 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                                     new TypeReference<ArrayList<Product>>() {
                                     }
                             );
+                            for (int item = 0; item < accountList.size(); item++) {
+                                order.setShopLatlong(accountList.get(item).latlong);
+                            }
+
                             order.setProductBeans(accountList);
                             if (order.getStatus().equalsIgnoreCase("ordered")) {
                                 orderList.add(order);
@@ -267,7 +278,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
             return true;
         } else if (id == R.id.logout) {
             logout();
-        }else if (id == R.id.wallet) {
+        } else if (id == R.id.wallet) {
             Intent intent3 = new Intent(MainActivityOrder.this, WalletActivity.class);
             startActivity(intent3);
         }
@@ -320,13 +331,41 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
 
     @Override
     protected void onStart() {
+        fetchContacts();
         super.onStart();
-
     }
 
     @Override
     public void onDeliveredClick(String id) {
-        statusChange(id, "Delivered", "Delivered by admin");
+        alertDelivered(id);
+    }
+
+    private void alertDelivered(String orderId) {
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(MainActivityOrder.this, R.style.RoundShapeTheme);
+        LayoutInflater inflater = MainActivityOrder.this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.alert_delivery, null);
+
+        RadioButton online = dialogView.findViewById(R.id.online);
+        RadioButton cod = dialogView.findViewById(R.id.cod);
+
+        dialogBuilder.setTitle("Alert")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        statusChange(orderId, "Delivered", "Delivered by admin", online.isChecked() ? "online" : "cod");
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        dialogBuilder.setView(dialogView);
+        final AlertDialog b = dialogBuilder.create();
+        b.setCancelable(false);
+        b.show();
     }
 
 
@@ -371,26 +410,26 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
 
     @Override
     public void InPicked(Order order) {
-        statusChange(order.getId(), "Delivery Boy Picked", "Picked By DeliveryBoy");
+        statusChange(order.getId(), "Delivery Boy Picked", "Picked By DeliveryBoy", "");
     }
 
     @Override
     public void Bill(Order position) {
-        printFunction(MainActivityOrder.this, position);
+        printFunction(position);
     }
 
     @Override
     public void onLocation(Order order) {
-        Intent intent = new Intent(MainActivityOrder.this, MapsActivity.class);
+        //String names = order.shopLatlong;
         String names = order.latlong;
         String[] namesList = names.split(",");
-        intent.putExtra("Latitude",namesList [0]);
-        intent.putExtra("Longitude",namesList [1]);
-        intent.putExtra("Address",order.address);
+        String geoUri = "http://maps.google.com/maps?q=loc:" + namesList[0] + "," + namesList[1]  + " (" + order.address + ")";
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(geoUri));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
         startActivity(intent);
     }
 
-    public void printFunction(Context context, Order mainbean) {
+    public void printFunction(Order mainbean) {
 
         try {
 
@@ -437,18 +476,14 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
             }
             hideDialog();
             // new UploadInvoiceToServer().execute(imageutils.getPath(fileUri) + "@@" + mainbean.getBuyerphone() + "@@" + mainbean.getDbid());
-
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
             hideDialog();
         }
-
-
     }
 
-
-    private void statusChange(final String id, final String status, final String reason) {
+    private void statusChange(final String id, final String status, final String reason, final String payType) {
         String tag_string_req = "req_register";
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -485,6 +520,12 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
                 localHashMap.put("id", id);
                 localHashMap.put("status", status);
                 localHashMap.put("reason", reason);
+                if (payType.isEmpty()) {
+
+                } else {
+                    localHashMap.put("paymentProgress", payType);
+                }
+
                 return localHashMap;
             }
         };

@@ -27,7 +27,6 @@ import java.util.regex.Pattern;
 
 public class AppConfig {
 
-
     public static final String mypreference = "mypref";
     public static final String name = "name";
     public static final String user_id = "user_id";
@@ -38,6 +37,7 @@ public class AppConfig {
     public static final String password = "password";
     public static final String shopId = "shopId";
     //NetworkSoftware
+   // public static final String ip = "http://192.168.43.217:8098/prisma/nanjilmart";
    // public static final String ip = "http://192.168.1.204:8098/prisma/nanjilmart";
     public static final String ip = "http://thestockbazaar.com/prisma/nanjilmart";
     public static final String delivery_id = "delivery_id";

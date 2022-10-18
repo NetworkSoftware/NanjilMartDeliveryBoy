@@ -100,6 +100,15 @@
                     android:gravity="left"
                     android:text="Status"
                     android:textColor="@android:color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/sans_bold"
+                    android:gravity="left"
+                    android:text="Payment progress"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -211,7 +220,15 @@
                     android:fontFamily="@font/sans_bold"
                     android:gravity="left"
                     android:text="2020-09-19" />
-
+                <TextView
+                    android:id="@+id/payProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="15dp"
+                    android:fontFamily="@font/sans_bold"
+                    android:gravity="left"
+                    android:text="cod" />
                 <TextView
                     android:id="@+id/reason"
                     android:layout_width="match_parent"

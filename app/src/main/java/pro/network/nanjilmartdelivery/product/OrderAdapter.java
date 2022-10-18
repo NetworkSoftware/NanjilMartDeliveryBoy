@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import pro.network.nanjilmartdelivery.R;
 import pro.network.nanjilmartdelivery.app.AppConfig;
@@ -124,6 +125,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             }
         });
 
+        holder.payProgress.setText(order.paymentProgress.toUpperCase(Locale.ROOT));
+
     }
 
     @Override
@@ -182,7 +185,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, price, status, quantity,
-                phone, orderedOn,gstAmt, address, reason,order_id,location,subProduct;
+                phone, orderedOn,gstAmt,payProgress, address, reason,order_id,location,subProduct;
         public ImageView thumbnail;
         public RecyclerView cart_sub_list;
         Button deliveredBtn, whatsapp, call,
@@ -211,6 +214,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             trackOrder = view.findViewById(R.id.trackOrder);
             bill = view.findViewById(R.id.bill);
             location = view.findViewById(R.id.location);
+            payProgress = view.findViewById(R.id.payProgress);
 
 
         }

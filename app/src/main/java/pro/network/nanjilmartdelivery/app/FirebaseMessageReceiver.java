@@ -7,6 +7,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +18,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.io.IOException;
 
 import pro.network.nanjilmartdelivery.R;
 import pro.network.nanjilmartdelivery.SplashActivity;
@@ -75,16 +79,33 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
             notificationChannel.setSound(uri, null);
             notificationManager.createNotificationChannel(notificationChannel);
         }
-
+        Uri sound = Uri.parse(
+                "android.resource://" +
+                        getApplicationContext().getPackageName() +
+                        "/" +
+                        R.raw.nanjil);
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setLooping(false);
+        try {
+            // mediaPlayer.setDataSource(String.valueOf(myUri));
+            mediaPlayer.setDataSource(FirebaseMessageReceiver.this, sound);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.start();
         notificationManager.notify(0, builder.build());
     }
 
+
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-//        Log.e("xxxxxxxxxxxxx", "taskremoved,rootint");
         super.onTaskRemoved(rootIntent);
 
-        //Log.d(TAG, "TASK REMOVED");
         PendingIntent service = PendingIntent.getService(
                 getApplicationContext(),
                 1001,
