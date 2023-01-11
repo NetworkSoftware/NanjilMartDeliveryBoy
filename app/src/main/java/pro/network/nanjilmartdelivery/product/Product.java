@@ -24,7 +24,7 @@ public class Product implements Serializable {
     String dCost,offer;
     public String shopid;
     public String latlong,subProduct,strikeoutAmt,category_enabled,
-            shop_enabled,time_periods,offerImage,offerPercent;
+            shop_enabled,time_periods,offerImage,offerPercent,gifurl,nextOpen,cate_latlong;
 
     public Product() {
     }
@@ -41,7 +41,8 @@ public class Product implements Serializable {
                    String image, String description, String category, String sub_category,
                    String shopname,String qtyPrice,String subProduct,String strikeoutAmt,
                    String category_enabled,String shop_enabled,
-                   String time_periods,String offer,String offerImage,String offerPercent) {
+                   String time_periods,String offer,String offerImage,String offerPercent,
+                   String gifurl,String nextOpen,String cate_latlong) {
         this.brand = brand;
         this.model = model;
         this.price = price;
@@ -60,6 +61,33 @@ public class Product implements Serializable {
         this.offer = offer;
         this.offerImage = offerImage;
         this.offerPercent = offerPercent;
+        this.gifurl = gifurl;
+        this.nextOpen = nextOpen;
+        this.cate_latlong = cate_latlong;
+    }
+
+    public String getGifurl() {
+        return gifurl;
+    }
+
+    public void setGifurl(String gifurl) {
+        this.gifurl = gifurl;
+    }
+
+    public String getNextOpen() {
+        return nextOpen;
+    }
+
+    public void setNextOpen(String nextOpen) {
+        this.nextOpen = nextOpen;
+    }
+
+    public String getCate_latlong() {
+        return cate_latlong;
+    }
+
+    public void setCate_latlong(String cate_latlong) {
+        this.cate_latlong = cate_latlong;
     }
 
     public String getOfferImage() {
