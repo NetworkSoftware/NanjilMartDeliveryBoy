@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "714581682526",
     "project_id": "nanjilmartdelivery",
-    "storage_bucket": "nanjilmartdelivery.appspot.com"
+    "storage_bucket": "nanjilmartdelivery.firebasestorage.app"
   },
   "client": [
     {
